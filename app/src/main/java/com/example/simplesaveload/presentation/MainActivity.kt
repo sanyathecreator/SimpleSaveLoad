@@ -1,18 +1,20 @@
 package com.example.simplesaveload.presentation
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.app.Activity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.example.simplesaveload.R
+import com.example.simplesaveload.data.repository.UserRepositoryImpl
+import com.example.simplesaveload.domain.models.UserFullName
 import com.example.simplesaveload.domain.usecase.GetUserNameUseCase
 import com.example.simplesaveload.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : Activity() {
-    private val getUserNameUseCase = GetUserNameUseCase()
-    private val saveUserNameUseCase = SaveUserNameUseCase()
+    private val userRepository by lazy { UserRepositoryImpl(context = applicationContext) }
+    private val getUserNameUseCase by lazy { GetUserNameUseCase(userRepository) }
+    private val saveUserNameUseCase by lazy { SaveUserNameUseCase(userRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +27,8 @@ class MainActivity : Activity() {
 
         saveButton.setOnClickListener {
             val text = inputField.text.toString()
-            val result = saveUserNameUseCase.execute(text)
+            val fullName =  UserFullName(name = text)
+            val result = saveUserNameUseCase.execute(userFullName = fullName)
             displayText.text = "Result: $result"
         }
         loadButton.setOnClickListener {

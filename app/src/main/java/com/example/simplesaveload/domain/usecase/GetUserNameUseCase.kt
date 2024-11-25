@@ -1,9 +1,10 @@
 package com.example.simplesaveload.domain.usecase
 
-import com.example.simplesaveload.domain.models.Username
+import com.example.simplesaveload.domain.models.UserName
+import com.example.simplesaveload.domain.repository.UserRepository
 
-class GetUserNameUseCase {
-    fun execute() : Username {
-        return Username(firstName = "Jack", lastName = "London")
+class GetUserNameUseCase(private val userRepository: UserRepository) {
+    fun execute() : UserName {
+        return userRepository.getUsername()
     }
 }

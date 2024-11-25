@@ -1,7 +1,10 @@
 package com.example.simplesaveload.domain.usecase
 
-class SaveUserNameUseCase {
-    fun execute(text: String): Boolean {
-        return text.isNotEmpty()
+import com.example.simplesaveload.domain.models.UserFullName
+import com.example.simplesaveload.domain.repository.UserRepository
+
+class SaveUserNameUseCase(private val userRepository: UserRepository) {
+    fun execute(userFullName: UserFullName): Boolean {
+        return userRepository.saveUsername(userFullName)
     }
 }
