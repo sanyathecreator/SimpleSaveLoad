@@ -13,10 +13,26 @@ import com.example.simplesaveload.domain.usecase.GetUserNameUseCase
 import com.example.simplesaveload.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : Activity() {
-    private val sharedPreferencesUserStorage by lazy { SharedPrefUserStorage(context = applicationContext) }
-    private val userRepository by lazy { UserRepositoryImpl(sharedPreferencesUserStorage) }
-    private val getUserNameUseCase by lazy { GetUserNameUseCase(userRepository) }
-    private val saveUserNameUseCase by lazy { SaveUserNameUseCase(userRepository) }
+    private val sharedPreferencesUserStorage by lazy {
+        SharedPrefUserStorage(
+            context = applicationContext
+        )
+    }
+    private val userRepository by lazy {
+        UserRepositoryImpl(
+            sharedPreferencesUserStorage
+        )
+    }
+    private val getUserNameUseCase by lazy {
+        GetUserNameUseCase(
+            userRepository
+        )
+    }
+    private val saveUserNameUseCase by lazy {
+        SaveUserNameUseCase(
+            userRepository
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +45,7 @@ class MainActivity : Activity() {
 
         saveButton.setOnClickListener {
             val text = inputField.text.toString()
-            val fullName =  UserFullName(name = text)
+            val fullName = UserFullName(name = text)
             val result = saveUserNameUseCase.execute(userFullName = fullName)
             displayText.text = "Result: $result"
         }

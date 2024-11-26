@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "SimpleSaveLoad"
 include(":app")
- 
+include(":data")
+include(":domain")
