@@ -7,12 +7,14 @@ import android.widget.EditText
 import android.widget.TextView
 import com.example.simplesaveload.R
 import com.example.simplesaveload.data.repository.UserRepositoryImpl
+import com.example.simplesaveload.data.storage.sharedprefs.SharedPrefUserStorage
 import com.example.simplesaveload.domain.models.UserFullName
 import com.example.simplesaveload.domain.usecase.GetUserNameUseCase
 import com.example.simplesaveload.domain.usecase.SaveUserNameUseCase
 
 class MainActivity : Activity() {
-    private val userRepository by lazy { UserRepositoryImpl(context = applicationContext) }
+    private val sharedPreferencesUserStorage by lazy { SharedPrefUserStorage(context = applicationContext) }
+    private val userRepository by lazy { UserRepositoryImpl(sharedPreferencesUserStorage) }
     private val getUserNameUseCase by lazy { GetUserNameUseCase(userRepository) }
     private val saveUserNameUseCase by lazy { SaveUserNameUseCase(userRepository) }
 
