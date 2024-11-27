@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
